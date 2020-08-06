@@ -26,17 +26,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		.authorizeRequests()
 			.anyRequest()
 			.authenticated()
-			.and()
-			.httpBasic()
-			.and()
-			.csrf()
-			.disable();
+			.and().httpBasic()
+			.and().csrf().disable();
 	}
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		
-		BCryptPasswordEncoder enconder = new BCryptPasswordEncoder();
-		 auth.userDetailsService(userDetailsService).passwordEncoder(enconder);
+		auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
 	}
 }
